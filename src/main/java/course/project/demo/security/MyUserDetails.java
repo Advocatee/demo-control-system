@@ -5,9 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
@@ -18,16 +16,15 @@ public class MyUserDetails implements UserDetails {
     private List<GrantedAuthority> authorities;
 
 
-    public MyUserDetails(User user) {
+    public MyUserDetails(Optional<User> user) {
 
-        this.userName = user.getUserName();
-        this.password = user.getPassword();
-        this.active = user.isActive();
-        this.authorities = Arrays.stream(user.getRole().getName().split(","))
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-
+        this.userName = user.get().getUserName();
+        this.password = user.get().getPassword();
+        this.active = true;
+        this.authorities = new ArrayList<>();
+        authorities.add((GrantedAuthority) () -> "ROLE_" + user.get().getRole()  );
     }
+
 
 
     @Override
@@ -65,3 +62,13 @@ public class MyUserDetails implements UserDetails {
         return active;
     }
 }
+
+
+//    public MyUserDetails(User user) {
+//        this.userName = user.getUserName();
+//        this.password = user.getPassword();
+//        this.active = user.isActive();
+//        this.authorities = Arrays.stream(user.getRole().getName().split(","))
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
+//    }
