@@ -2,11 +2,11 @@ package course.project.demo.security;
 
 import course.project.demo.model.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 public class MyUserDetails implements UserDetails {
 
@@ -22,7 +22,7 @@ public class MyUserDetails implements UserDetails {
         this.password = user.get().getPassword();
         this.active = true;
         this.authorities = new ArrayList<>();
-        authorities.add((GrantedAuthority) () -> "ROLE_" + user.get().getRole()  );
+        authorities.add((GrantedAuthority) () -> "ROLE_" + user.get().getRole().getName());
     }
 
 
@@ -61,14 +61,12 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return active;
     }
+//    @Override
+//    public String toString() {
+//        return "MyUserDetails{" +
+//                "authorities=" + authorities.get(0).getAuthority() +
+//                '}';
+//    }
 }
 
 
-//    public MyUserDetails(User user) {
-//        this.userName = user.getUserName();
-//        this.password = user.getPassword();
-//        this.active = user.isActive();
-//        this.authorities = Arrays.stream(user.getRole().getName().split(","))
-//                .map(SimpleGrantedAuthority::new)
-//                .collect(Collectors.toList());
-//    }
