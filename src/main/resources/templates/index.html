@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      >
+
 <head>
     <meta charset="UTF-8">
     <title>Главная</title>
@@ -9,9 +13,9 @@
 
 <a href="/user">User Page</a>
 <a href="/admin">Admin Page</a>
-<a href="/all">Для всех</a>
 
-
+<div align="right"  sec=:authorize="hasRole('ROLE_ADMIN)">
+    <p>Only for user with ROLE_ADMIN</p> </div>
 
 </body>
 </html>
