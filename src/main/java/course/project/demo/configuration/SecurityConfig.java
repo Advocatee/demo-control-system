@@ -24,20 +24,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService);
     }
 
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-//                .csrf().disable()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS) // сессию для каждого юзера не создаем
+//        http
+////                .csrf().disable()
+////                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS) // сессию для каждого юзера не создаем
+////                .and()
+//                .authorizeRequests()
+//                .antMatchers("/all").permitAll()
+//                .antMatchers("/user").hasRole("USER")
+//                .antMatchers("/admin").hasRole("ADMIN")
 //                .and()
+//                .formLogin().permitAll()
+//                .loginPage("/login")
+//                .failureUrl("/index");
+        http.
+                csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/all").permitAll()
-                .antMatchers("/user").hasRole("USER")
+                .antMatchers("/user").hasAnyRole("ADMIN,USER")
                 .antMatchers("/admin").hasRole("ADMIN")
                 .and()
-                .formLogin().permitAll()
-                .loginPage("/login")
-                .failureUrl("/index");
+                .formLogin();
 
 //        http.formLogin()
 //                // указываем страницу с формой логина

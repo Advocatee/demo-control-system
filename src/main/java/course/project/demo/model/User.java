@@ -11,15 +11,13 @@ import javax.persistence.*;
 @Data
 public class User extends BaseEntity {
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     private String userName;
     @Column
     private String firstName;
     @Column
     private String lastName;
     @Column
-    private boolean active ;
-    @Column(nullable = false)
     private String password;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
@@ -31,7 +29,6 @@ public class User extends BaseEntity {
                 "userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", active=" + active +
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 '}';
