@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все пользователи</title>
+</head>
+<body>
+
+<div th:each=" user : ${allUsers} ">
+    <a th:text="${user.getId()}">userId</a>
+    <a th:text="${user.getUserName()}">userName</a>
+    <a th:text="${user.getFirstName()}">userFirstName</a>
+    <a th:text="${user.getLastName()}">userLastName</a>
+    <a th:text="${user.getPassword()}">UserPassword</a>
+    <a th:text="${user.getRole().getName()}">roleName</a>
+    <form th:method="POST" th:action="@{/users/{id}(id=${user.getId()})}">
+        <input type="submit" value="Удалить">
+    </form>
+</div>
+
+
+<a href="/users/create">Создать</a>
+
+</body>
+</html>
