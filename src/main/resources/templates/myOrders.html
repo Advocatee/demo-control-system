@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои заказы</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<h1 align="center">Мои заказы</h1>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Логин</th>
+            <th scope="col">ID пользователя</th>
+            <th scope="col">Этаж</th>
+            <th scope="col">Улица</th>
+            <th scope="col">Количество комнат</th>
+            <th scope="col">Цена в месяц</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        </tbody>
+        <tr th:each=" ord : ${orders} ">
+            <td><a th:text="${ord.getUser().getFirstName()}">userName</a></td>
+            <td><a th:text="${ord.getUser().getId()}">userId</a></td>
+            <td><a th:text="${ord.getFlat().getFlour()}">Flour</a></td>
+            <td><a th:text="${ord.getFlat().getStreet()}">Street</a></td>
+            <td><a th:text="${ord.getFlat().getCountOfRoom()}">CountOfRoom</a></td>
+            <td><a th:text="${ord.getFlat().getPriceInMonth()}">Price</a></td>
+            <td>
+                <form th:method="post" th:action="@{/flat/{id}(id=${ord.getId()})}">
+                    <input type="submit" value="Удалить">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <a class="btn btn-primary" href="/">Назад</a>
+</div>
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

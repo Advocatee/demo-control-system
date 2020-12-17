@@ -1,19 +1,43 @@
 <!DOCTYPE html>
 
-<!--Разработка системы управления бюджетом на предприятии.-->
-
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
     <title>Главная</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
+<form>
+    <b><h1 align="center">Разработка системы управления бюджетом на предприятии</h1></b>
+    <p align="center">Данный курсовой проект был реализован на примере предприятия по аренде жилой недвижемости</p>
+    <p align="center">В курсовом проекте использовались следующие технологии: Spring Security, Spring MVC, Spring Data,
+        MySQL, Thymeleaf, Bootstrap, Spring, Hibernate, Controller</p>
+</form>
+<div class="btn-group d-flex justify-content-center mt-3" role="group" aria-label="Basic example">
+    <a href="/flat/getAll">
+        <button type="button" class="btn btn-primary m-2"> Доступные квартиры</button>
+    </a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/users/allUsers">
+        <button type="button" class="btn btn-primary m-2" >Все пользователи</button>
+    </a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/role/allRoles">
+        <button type="button" class="btn btn-primary m-2">Все роли</button>
+    </a>
+    <a href="/flat/allOrders">
+        <button type="button" class="btn btn-primary m-2">Мои заказы</button>
+    </a>
 
-<a href="/user">User Page</a>
-<div align="right" sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin">Admin Page</a></div>
-<p align="right"><a href="/login">Вход</a></p>
-<div align="right" sec:authorize="hasRole('ROLE_ADMIN')"><a href="/users/allUsers">Все пользователи</a></div>
-<div align="right" sec:authorize="hasRole('ROLE_USER')">Text</div>
+    <a href="/login">
+        <button type="button" class="btn btn-outline-primary m-2">Войти</button>
+    </a>
+
+    <a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')" href="/logout">
+        <button type="button" class="btn btn-outline-primary m-2">Выйти</button>
+    </a>
+</div>
+</div>
+
 </body>
+<script src="/js/bootstrap.bundle.min.js"></script>
 </html>

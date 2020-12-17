@@ -3,30 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Создать пользователя</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
-
-<form th:method="post" th:action="@{/users}" th:object="${newUser}">
-
-    <label for="userName"> Enter userName:</label>
-    <input th:field="*{userName}" type="text" id="userName">
-
-    <label for="firstName"> Enter firstName:</label>
-    <input th:field="*{firstName}" type="text" id="firstName">
-
-    <label for="lastName"> Enter lastName:</label>
-    <input th:field="*{lastName}" type="text" id="lastName">
-
-    <label for="password"> Enter password:</label>
-    <input th:field="*{password}" type="text" id="password">
-
-    <label for="role"> Enter role:</label>
-    <label for="role"> 1 : Admin ; 2 : user</label>
-    <input th:field="*{role}" type="number" id="role">
-
-    <input type="submit" value="Create">
-</form>
-
-
+<div class="container">
+    <h1 class="display-4" align="center">Создание пользователя</h1>
+    <form th:method="post" th:action="@{/users}" th:object="${newUser}">
+        <div class="form-group">
+            <label for="userName">Введите логин: </label>
+            <input type="text" th:field="*{userName}" class="form-control" id="userName" aria-describedby="emailHelp"
+                   placeholder="Login">
+            <label for="firstName">Введите имя: </label>
+            <input type="text" th:field="*{firstName}" class="form-control" id="firstName" aria-describedby="emailHelp"
+                   placeholder="Name">
+            <label for="lastName">Введите фамилию: </label>
+            <input type="text" th:field="*{lastName}" class="form-control" id="lastName" aria-describedby="emailHelp"
+                   placeholder="Surname">
+            <label for="password">Введите пароль: </label>
+            <input type="password" th:field="*{password}" class="form-control" id="password"
+                   aria-describedby="emailHelp" placeholder="Password">
+            <label for="roles">Введите номер роли: </label>
+            <input type="number" th:field="*{roles}" class="form-control" id="roles"
+                   aria-describedby="emailHelp">
+        </div>
+        <button type="submit" class="btn btn-primary">Создать</button>
+        <a class="btn btn-primary" href="/role/allRoles">Все роли</a>
+        <a class=" btn btn-primary" href="/">Назад</a>
+    </form>
+</div>
+<script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

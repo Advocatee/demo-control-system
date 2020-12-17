@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать квартиру</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="display-4" align="center">Создать квартиру</h1>
+    <form th:method="post" th:action="@{/flat/saveFlat}" th:object="${newFlat}">
+        <div class="form-group">
+            <label for="countOfRoom"> Количество комнат:</label>
+            <input th:field="*{countOfRoom}" class="form-control" type="number" id="countOfRoom"
+                   aria-describedby="emailHelp" placeholder="Количество комнат">
+
+            <label for="flour"> Этаж:</label>
+            <input th:field="*{flour}" class="form-control" type="number" id="flour" aria-describedby="emailHelp"
+                   placeholder="Этаж">
+
+            <label for="priceInMonth"> Цена в месяц:</label>
+            <input th:field="*{priceInMonth}" class="form-control" type="number" id="priceInMonth"
+                   aria-describedby="emailHelp" placeholder="Цена в месяц">
+
+            <label for="square"> Площадь:</label>
+            <input th:field="*{square}" class="form-control" type="number" id="square" aria-describedby="emailHelp"
+                   placeholder="Площадь">
+
+            <label for="street"> Улица:</label>
+            <input th:field="*{street}" class="form-control" type="text" id="street" aria-describedby="emailHelp"
+                   placeholder="Улица">
+        </div>
+        <button type="submit" class="btn btn-primary">Создать</button>
+        <a class="btn btn-primary" href="/">Назад</a>
+    </form>
+</div>
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

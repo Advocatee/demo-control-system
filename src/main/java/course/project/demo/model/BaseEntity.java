@@ -1,6 +1,5 @@
 package course.project.demo.model;
 
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

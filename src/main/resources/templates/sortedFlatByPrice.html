@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Отсортированный список</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 align="center">Отсортированный список квартир по цене</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Количество комнат</th>
+            <th scope="col">Этаж</th>
+            <th scope="col">Цена в месяц</th>
+            <th scope="col">Площадь</th>
+            <th scope="col">Улица</th>
+            <th scope="col">Год последнего ремонта</th>
+            <th scope="col">Год постройки</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody th:each=" flat : ${sortList} ">
+        <tr>
+            <td th:text="${flat.getCountOfRoom()}"></td>
+            <td th:text="${flat.getFlour()}"></td>
+            <td th:text="${flat.getPriceInMonth()}"></td>
+            <td th:text="${flat.getSquare()}"></td>
+            <td th:text="${flat.getStreet()}"></td>
+            <td th:each="year : ${flat.getYears()}">
+                <span th:text="${year.getYearOfLastRenovation()}">
+                </span>
+            </td>
+            <td th:each="year : ${flat.getYears()}">
+                <span th:text="${year.getYearOfBuild()}">
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/flat/getAll">Назад</a>
+</div>
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

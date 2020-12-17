@@ -1,31 +1,35 @@
 package course.project.demo.security;
 
+import course.project.demo.model.Role;
 import course.project.demo.model.User;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-
+@Getter
+@Setter
 public class MyUserDetails implements UserDetails {
 
+    private Long id;
     private String userName;
     private String password;
     private boolean active;
     private List<GrantedAuthority> authorities;
 
-
-    public MyUserDetails(Optional<User> user) {
-
-        this.userName = user.get().getUserName();
-        this.password = user.get().getPassword();
+    public MyUserDetails(User user) {
+        this.id = user.getId();
+        this.userName = user.getUserName();
+        this.password = user.getPassword();
         this.active = true;
         this.authorities = new ArrayList<>();
-        authorities.add((GrantedAuthority) () -> "ROLE_" + user.get().getRole().getName());
+        for (Role role : user.getRoles()
+        ) {
+            authorities.add((GrantedAuthority) () -> "ROLE_" + role.getName());
+        }
     }
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -61,12 +65,7 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return active;
     }
-//    @Override
-//    public String toString() {
-//        return "MyUserDetails{" +
-//                "authorities=" + authorities.get(0).getAuthority() +
-//                '}';
-//    }
+
 }
 
 

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все Роли</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="display-4" align="center">Все роли</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Роль</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody th:each=" role : ${allRoles} ">
+        <tr>
+            <td th:text="${role.getId()}"></td>
+            <td th:text="${role.getName()}"></td>
+            <td>
+                <form th:method="post" th:action="@{/role/{id}(id=${role.getId()})}">
+                    <input type="submit" class="btn btn-primary"
+                           value="Удалить"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/role/createRole">Создать роль для пользователя</a>
+    <a align="center" class="btn btn-primary" href="/">Назад</a>
+</div>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

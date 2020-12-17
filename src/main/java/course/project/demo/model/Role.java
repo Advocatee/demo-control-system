@@ -3,10 +3,8 @@ package course.project.demo.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -15,8 +13,9 @@ public class Role extends BaseEntity {
 
     @Column
     private String name;
-    @OneToOne(mappedBy = "role" , cascade = CascadeType.ALL, orphanRemoval = true)
-    private User user;
+
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    private List<User> users;
 
     @Override
     public String toString() {

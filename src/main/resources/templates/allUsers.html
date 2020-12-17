@@ -3,23 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Все пользователи</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
-
-<div th:each=" user : ${allUsers} ">
-    <a th:text="${user.getId()}">userId</a>
-    <a th:text="${user.getUserName()}">userName</a>
-    <a th:text="${user.getFirstName()}">userFirstName</a>
-    <a th:text="${user.getLastName()}">userLastName</a>
-    <a th:text="${user.getPassword()}">UserPassword</a>
-    <a th:text="${user.getRole().getName()}">roleName</a>
-    <form th:method="POST" th:action="@{/users/{id}(id=${user.getId()})}">
-        <input type="submit" value="Удалить">
-    </form>
+<div class="container">
+    <h1 class="display-4" align="center">Все пользователи</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Логин</th>
+            <th scope="col">Имя пользователя</th>
+            <th scope="col">Фамилия пользователя</th>
+            <th scope="col">Пароль</th>
+            <th scope="col">Роль</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each=" user : ${allUsers} ">
+            <td><a th:text="${user.getId()}">ID</a></td>
+            <td><a th:text="${user.getUserName()}">UserName</a></td>
+            <td><a th:text="${user.getFirstName()}">FirstName</a></td>
+            <td><a th:text="${user.getLastName()}">LastName</a></td>
+            <td><a th:text="${user.getPassword()}">Password</a></td>
+            <td>
+                <div th:each="role : ${user.getRoles()}">
+                    <a th:text="${role.getName()}">roleName</a>
+                </div>
+            </td>
+            <td>
+                <form th:method="post" th:action="@{/users/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Удалить">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/users/create">Создать пользователя</a>
+    <a class="btn btn-primary" href="/">Назад</a>
 </div>
-
-
-<a href="/users/create">Создать</a>
-
+<script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

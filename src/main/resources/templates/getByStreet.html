@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск по улице</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="display-4" align="center">Поиск по названию улицы</h1>
+    <form th:method="post" th:action="@{/flat/getListOfStreet}" th:object="${str}">
+        <div class="form-group">
+            <label for="street">Улица: </label>
+            <input type="text" th:field="*{street}" class="form-control" id="street" aria-describedby="emailHelp" placeholder="Улица">
+        </div>
+        <button type="submit" class="btn btn-primary">Поиск</button>
+        <a class=" btn btn-primary" href="/flat/getAll">Назад</a>
+    </form>
+</div>
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Квартиры</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<h1 align="center">Доступные квартиры</h1>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Количество комнат</th>
+            <th scope="col">Этаж</th>
+            <th scope="col">Цена в месяц</th>
+            <th scope="col">Площадь</th>
+            <th scope="col">Улица</th>
+            <th scope="col">Год последнего ремонта</th>
+            <th scope="col">Год постройки</th>
+            <th scope="col"></th>
+            <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col"></th>
+        </tr>
+        </thead>
+        <tbody th:each=" flat : ${allFlats} ">
+        <tr>
+            <td th:text="${flat.getCountOfRoom()}"></td>
+            <td th:text="${flat.getFlour()}"></td>
+            <td th:text="${flat.getPriceInMonth()}"></td>
+            <td th:text="${flat.getSquare()}"></td>
+            <td th:text="${flat.getStreet()}"></td>
+            <td th:each="year : ${flat.getYears()}">
+                <span th:text="${year.getYearOfLastRenovation()}">
+                </span>
+            </td>
+            <td th:each="year : ${flat.getYears()}">
+                <span th:text="${year.getYearOfBuild()}">
+                </span>
+            </td>
+            <td>
+                <form th:method="post" th:action="@{/flat/saveReserveFlat}" th:object="${flat}">
+                    <input type="hidden" name="id" th:value="${flat.getId()}"/>
+                    <input type="submit" class="btn btn-primary"
+                           value="Забронировать"/>
+                </form>
+            </td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                <form th:method="post" th:action="@{/flat/deleteFlat}" th:object="${flat}">
+                    <input type="hidden" name="id" th:value="${flat.getId()}"/>
+                    <input type="submit" class="btn btn-primary" value="Удалить"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="/">Назад</a>
+    <a class="btn btn-primary" href="/flat/createFlat">Создать квартиру</a>
+    <a class="btn btn-primary" href="/flat/sortFlat">Отсортировать по цене</a>
+    <a class="btn btn-primary" href="/flat/getPageByStreet">Поиск по названию улицы</a>
+</div>
+<script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
